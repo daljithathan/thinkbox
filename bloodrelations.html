@@ -64,6 +64,52 @@
             margin: 10px 5px;
         }
 
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
         .instructions {
             background: #fff3cd;
             border-left: 5px solid #ffc107;
@@ -87,6 +133,28 @@
 
         .instructions li {
             margin-bottom: 8px;
+        }
+
+        .results-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: white;
+        }
+
+        .results-section h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .results-section p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            opacity: 0.95;
         }
 
         .quiz-container {
@@ -130,6 +198,13 @@
             opacity: 0.8;
         }
 
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8em;
@@ -147,13 +222,15 @@
                 height: 70vh;
                 min-height: 500px;
             }
-        }
 
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #667eea;
-            font-size: 1.2em;
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -164,22 +241,23 @@
             <h1>🧠 ThinkBox</h1>
             <h2>Blood Relations - Verbal Reasoning Test</h2>
             <p>Master the concept of Blood Relations with this comprehensive quiz</p>
+            <p>Prepare for Government Jobs, Bank Exams, SSC, and Campus Placements</p>
             <div>
                 <span class="badge">📚 Verbal Reasoning</span>
                 <span class="badge">👨‍👩‍👧‍👦 Blood Relations</span>
                 <span class="badge">⏱️ Timed Test</span>
-                <div class="action-buttons">
+            </div>
+            <div class="action-buttons">
                 <a href="#quiz-section" class="btn btn-primary">
                     📝 Take Quiz
                 </a>
                 <a href="https://docs.google.com/spreadsheets/d/13jV8CHpMSIrH0akKTz-lZEBwcun0G9r0OP9SeD7qYvI/edit?usp=sharing" target="_blank" class="btn btn-secondary">
-                    📊 View Result
+                    📊 View All Results
                 </a>
-            </div>
             </div>
         </div>
 
-                <!-- Results Section -->
+        <!-- Results Section -->
         <div class="results-section">
             <h3>📈 Check Your Performance</h3>
             <p>After submitting your quiz, you can view all responses and compare your performance with other students</p>
@@ -197,11 +275,12 @@
                 <li>All questions are mandatory unless specified otherwise</li>
                 <li>Click "Submit" at the end to record your responses</li>
                 <li>Review your answers before final submission</li>
+                <li>After submission, check the results spreadsheet to see all responses</li>
             </ul>
         </div>
 
         <!-- Quiz Container -->
-        <div class="quiz-container">
+        <div class="quiz-container" id="quiz-section">
             <div class="loading" id="loading">⏳ Loading quiz... Please wait</div>
             <div class="iframe-wrapper">
                 <iframe 
@@ -217,7 +296,7 @@
 
         <!-- Footer Section -->
         <div class="footer">
-            <p>💡 Need more practice? Visit <a href="https://play.google.com/store/search?q=thinkbox&c=apps" target="_blank">ThinkBox App</a> for more resources</p>
+            <p>💡 Need more practice? Visit <a href="https://github.com/daljithathan/thinkbox" target="_blank">ThinkBox GitHub</a> for more resources</p>
             <p>📊 Track your progress: <a href="https://docs.google.com/spreadsheets/d/13jV8CHpMSIrH0akKTz-lZEBwcun0G9r0OP9SeD7qYvI/edit?usp=sharing" target="_blank">View Results</a></p>
             <p>© 2026 ThinkBox - Your Gateway to Success in Competitive Exams</p>
         </div>
