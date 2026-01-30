@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Relations Quiz - ThinkBox</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header h2 {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 10px 5px;
+        }
+
+        .instructions {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .instructions ul {
+            list-style-position: inside;
+            color: #856404;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .iframe-wrapper {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            min-height: 600px;
+        }
+
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid white;
+        }
+
+        .footer a:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header h2 {
+                font-size: 1.4em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .iframe-wrapper {
+                height: 70vh;
+                min-height: 500px;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>🧠 ThinkBox</h1>
+            <h2>Blood Relations - Verbal Reasoning Test</h2>
+            <p>Master the concept of Blood Relations with this comprehensive quiz</p>
+            <p>Prepare for Government Jobs, Bank Exams, SSC, and Campus Placements</p>
+            <div>
+                <span class="badge">📚 Verbal Reasoning</span>
+                <span class="badge">👨‍👩‍👧‍👦 Blood Relations</span>
+                <span class="badge">⏱️ Timed Test</span>
+            </div>
+        </div>
+
+        <!-- Instructions Section -->
+        <div class="instructions">
+            <h3>📋 Instructions</h3>
+            <ul>
+                <li>Read each question carefully before answering</li>
+                <li>Draw family tree diagrams if needed to visualize relationships</li>
+                <li>All questions are mandatory unless specified otherwise</li>
+                <li>Click "Submit" at the end to record your responses</li>
+                <li>Review your answers before final submission</li>
+            </ul>
+        </div>
+
+        <!-- Quiz Container -->
+        <div class="quiz-container">
+            <div class="loading" id="loading">⏳ Loading quiz... Please wait</div>
+            <div class="iframe-wrapper">
+                <iframe 
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSdnRzEAPqHIi5Z16QQ_GyXF6CDkDqEVoMD4CNiYgFROI7ttlA/viewform?embedded=true" 
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0"
+                    onload="document.getElementById('loading').style.display='none'">
+                    Loading…
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <p>💡 Need more practice? Visit <a href="https://github.com/daljithathan/thinkbox" target="_blank">ThinkBox GitHub</a> for more resources</p>
+            <p>© 2026 ThinkBox - Your Gateway to Success in Competitive Exams</p>
+        </div>
+    </div>
+</body>
+</html>
