@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThinkBox - Aptitude & Reasoning Test Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Prevent text selection and context menu */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .main-header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .main-header h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .main-header p {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .main-header .tagline {
+            color: #764ba2;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid transparent;
+        }
+
+        .nav-tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: white;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Chapter Grid */
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .chapter-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .chapter-title {
+            color: #333;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .chapter-desc {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .chapter-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #667eea;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Modal for Quiz */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8em;
+        }
+
+        .close-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            background: #f0f0f0;
+        }
+
+        .modal-body {
+            padding: 30px;
+            height: calc(90vh - 100px);
+            overflow-y: auto;
+        }
+
+        .quiz-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* Security Warning */
+        .security-warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+        }
+
+        .security-warning h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .security-warning ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .security-warning li {
+            margin: 8px 0;
+            font-size: 1.05em;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-header h1 {
+                font-size: 2em;
+            }
+
+            .chapter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                width: 100%;
+            }
+
+            .modal-content {
+                width: 95%;
+                max-height: 85vh;
+            }
+        }
+
+        /* Anti-copy protection */
+        ::selection {
+            background: transparent;
+        }
+
+        ::-moz-selection {
+            background: transparent;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <div class="container">
+        <!-- Main Header -->
+        <div class="main-header">
+            <h1>🧠 ThinkBox Quiz Platform</h1>
+            <p>Quantitative Aptitude & Verbal Reasoning</p>
+        </div>
+
+        <!-- Security Warning -->
+        <div class="security-warning">
+            <h3>⚠️ Test Guidelines & Security Notice</h3>
+            <ul>
+                <li>✅ Attempt all questions honestly for accurate assessment</li>
+                <li>📊 Your performance data helps you track progress</li>
+                <li>🎯 Practice with integrity for real exam success</li>
+            </ul>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="showSection('aptitude')">
+                📐 Quantitative Aptitude
+            </div>
+            <div class="nav-tab" onclick="showSection('reasoning')">
+                🧩 Verbal Reasoning
+            </div>
+        </div>
+
+        <!-- Quantitative Aptitude Section -->
+        <div id="aptitude" class="content-section active">
+            <div class="chapter-grid">
+                <!-- Alligation or Mixture -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🧪</div>
+                    <div class="chapter-title">Alligation or Mixture</div>
+                    <div class="chapter-desc">Master mixture and alligation problems with practical examples</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Alligation or Mixture', 'https://docs.google.com/forms/d/e/1FAIpQLSfQQNUsz7dodj-e7o7BkhheFDHae5V9UrlK8vV6Iqv95-i3EA/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1ZKuLmdaQHbNWYAB6OHYAGJg_xg4xKCwrwHlQb8QfWGo/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Area -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">📏</div>
+                    <div class="chapter-title">Area</div>
+                    <div class="chapter-desc">Calculate areas of various geometric shapes and figures</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Area', 'https://docs.google.com/forms/d/e/1FAIpQLScqS93CIM9Qc90kk94O-Lewzr7Iy8QSxDGCn9una3bGx2thUA/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1GOd89K3I3nMSDnKVyB84Dx0DYAi7fzhGoTtTEwNCCcE/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Average -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">📊</div>
+                    <div class="chapter-title">Average</div>
+                    <div class="chapter-desc">Solve problems related to mean, median, and averages</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Average', 'https://docs.google.com/forms/d/e/1FAIpQLSfVcjBklq5bYw_7BeJOl4ysa00FDq19mM3JfO75-8mV5IQiFA/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1URyp4N3XEUCY82Wtuy3lGgcpUd8JZDYOgKp6Nhtf6aM/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Boats & Streams -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🚤</div>
+                    <div class="chapter-title">Boats & Streams</div>
+                    <div class="chapter-desc">Speed, distance, and time problems in water streams</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Boats & Streams', 'https://docs.google.com/forms/d/e/1FAIpQLScPLu-dTGGJRB6MKSj6ebzfQqBhxfR9d_eg--_pD05rdzAEHg/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1sW_hnUH2b0SUDdeAh1DuC_yXb2ynVoQpJqwB3Vk9iXg/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- HCF-LCM -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🔢</div>
+                    <div class="chapter-title">HCF-LCM</div>
+                    <div class="chapter-desc">Highest Common Factor and Least Common Multiple problems</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('HCF-LCM', 'https://docs.google.com/forms/d/e/1FAIpQLSdGaRsfXPf51rHA6uXrFFxi-0P567-L4fy0TQJRuBKJ90P2NA/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1wDXewmgJpzUt_Je3AHUdTnTMLIAR77y0f_I8qw3cmjg/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Partnership -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🤝</div>
+                    <div class="chapter-title">Partnership</div>
+                    <div class="chapter-desc">Business partnership and profit sharing calculations</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Partnership', 'https://docs.google.com/forms/d/e/1FAIpQLSdWNOx0YsQxuyLZyy9uylB3fCA3Lkc5tYVusfJ-k9or0FqKrw/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1OKB-jk-usatyR-MVn8B-Yak9LgMoB2KN9kvFGsqlRq4/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Percentage -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">💯</div>
+                    <div class="chapter-title">Percentage</div>
+                    <div class="chapter-desc">Calculate percentages, increase, decrease, and applications</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Percentage', 'https://docs.google.com/forms/d/e/1FAIpQLSfRrSovlCNDonWGQcHRcRtvCrKQRdLkiCM1LEe52jue_LoyMg/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1hghi5sONqpKcLWK_vfCEBX5pIirprXeET2Dyu-Zz024/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Pipes & Cisterns -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">💧</div>
+                    <div class="chapter-title">Pipes & Cisterns</div>
+                    <div class="chapter-desc">Solve inlet-outlet and tank filling problems</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Pipes & Cisterns', 'https://docs.google.com/forms/d/e/1FAIpQLSdXnR7AndcRaC5C-hXf8Qh1-gbsCLIcnlVcovz9CyfcEfFN9A/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1cJrUWlWKrTfNspI-6xyKOlxfGfHZ10eDdnKdKmJLc5Y/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Problems on Ages -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">👴</div>
+                    <div class="chapter-title">Problems on Ages</div>
+                    <div class="chapter-desc">Age-related mathematical problems and solutions</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Problems on Ages', 'https://docs.google.com/forms/d/e/1FAIpQLSfndyZj4DdKjskfLtiaG1x1I_ddjk_qSjYK_VZ4MSomiGZDhw/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1lYm_IuhWGbtTmVQbh3AHz-FP_vJLhijMJPOfAQpyZDg/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Profit & Loss -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">💰</div>
+                    <div class="chapter-title">Profit & Loss</div>
+                    <div class="chapter-desc">Business transactions, profit, loss, and discount calculations</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Profit & Loss', 'https://docs.google.com/forms/d/e/1FAIpQLSc3CSuh5IVBum_aQtO9-g-Lc1PgIAerrNAzbgv0DVCJuw8qDQ/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1aRT3RV6nVIL7LAyaVOrlAahZ4V_1zESmC_8vimIhVAg/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Simple Interest -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🏦</div>
+                    <div class="chapter-title">Simple Interest</div>
+                    <div class="chapter-desc">Interest calculations for banking and finance problems</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Simple Interest', 'https://docs.google.com/forms/d/e/1FAIpQLSeqicJmcMmO1M7Y-Rg2-8n4psjZFk5DVU_bLZCOyVuk_LHu7w/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1WkT0EVpyS-oxyvf7fY1MBY33CY4kcwUuy3GpBaoPxI0/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Time & Work -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">⏰</div>
+                    <div class="chapter-title">Time & Work</div>
+                    <div class="chapter-desc">Work efficiency, time management, and combined work problems</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Time & Work', 'https://docs.google.com/forms/d/e/1FAIpQLSfRvGAzt8A9A0y00gx_TxNWrIjSgQMQ1GL4uGQ7vl2koqY95w/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1gmaBop8S5HZch3elZry28u1faKGIM7sbj-_8ENl75Gs/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Volume -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">📦</div>
+                    <div class="chapter-title">Volume</div>
+                    <div class="chapter-desc">Calculate volumes of 3D shapes and solid figures</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Volume', 'https://docs.google.com/forms/d/e/1FAIpQLSdiTOh049PiISzbr2INbRP8kuGHddpjMjH5zEh0Wh-zFDK7_A/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1ddL627ergkuA2C0uwE8r0pQ_9_T-STNjjXAORGZtRdA/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Verbal Reasoning Section -->
+        <div id="reasoning" class="content-section">
+            <div class="chapter-grid">
+                <!-- Alphabet Test -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🔤</div>
+                    <div class="chapter-title">Alphabet Test</div>
+                    <div class="chapter-desc">Letter sequences, patterns, and alphabetical reasoning</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Alphabet Test', 'https://docs.google.com/forms/d/e/1FAIpQLSdddDN5exSpZJ6Rw0rEeFWi0dZzQtqJ3dv0S2-o7gmgFevPvw/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1gRVp85A-7EQLv-KCXWB6DXgtj30nh-BqqXcJv0robDM/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Analogy -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🔗</div>
+                    <div class="chapter-title">Analogy</div>
+                    <div class="chapter-desc">Find relationships and similarities between concepts</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Analogy', 'https://docs.google.com/forms/d/e/1FAIpQLSdBU9Gk52bdBY-4AxYsgUsCkvbBK7__bERo7s4X5BbN9Br5Gw/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/12DSc74XtDtjavXy5xbGr4JpgSQAGOdiHZEOhjNrzPtY/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Arithmetical Reasoning -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">➗</div>
+                    <div class="chapter-title">Arithmetical Reasoning</div>
+                    <div class="chapter-desc">Logical problem-solving with numerical reasoning</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Arithmetical Reasoning', 'https://docs.google.com/forms/d/e/1FAIpQLSdTS6pPxZp8IwwDWRnRNGt752yfg-PqKDS24c0xzpmBLz9obQ/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1UZjYGEXnSA0_deAjgXwuWOS0gxlQBbjG1urqu4fccAs/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Blood Relations -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">👨‍👩‍👧‍👦</div>
+                    <div class="chapter-title">Blood Relations</div>
+                    <div class="chapter-desc">Family relationships and genealogical reasoning</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Blood Relations', 'https://docs.google.com/forms/d/e/1FAIpQLSdnRzEAPqHIi5Z16QQ_GyXF6CDkDqEVoMD4CNiYgFROI7ttlA/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/13jV8CHpMSIrH0akKTz-lZEBwcun0G9r0OP9SeD7qYvI/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Classification -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🗂️</div>
+                    <div class="chapter-title">Classification</div>
+                    <div class="chapter-desc">Group items based on common properties and differences</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Classification', 'https://docs.google.com/forms/d/e/1FAIpQLSeKsdotO5HinN27XV-TdIT8ZW1_MMavk1FMxdXqLA40Ae_tmw/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1KjHXcbvYXDnzJmUwtpDM_JABAul_-mHKRLaDdHiO3vY/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Coding Decoding -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🔐</div>
+                    <div class="chapter-title">Coding Decoding</div>
+                    <div class="chapter-desc">Crack codes and decode encrypted messages</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Coding Decoding', 'https://docs.google.com/forms/d/e/1FAIpQLSdUS1ZyMC7ifyt59baqv1GO5tRELbGcbz8QBIPsZMa2u3okTQ/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1hNcm5yAmg0YvLcqGo_cLGRgB4_8qhZNbrPlAe2HFBkg/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Direction Sense Test -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🧭</div>
+                    <div class="chapter-title">Direction Sense Test</div>
+                    <div class="chapter-desc">Navigate and solve directional movement problems</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Direction Sense Test', 'https://docs.google.com/forms/d/e/1FAIpQLSejewxTUEV71h9XyNKh9t0UWd6RhKCmROF6-R6SroLLdRGQMA/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1Vs8u41ZwfW0p-KXqqrQvMCjtSiup2lnIiipywWvbbIs/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Inserting Missing Character -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">❓</div>
+                    <div class="chapter-title">Inserting Missing Character</div>
+                    <div class="chapter-desc">Find patterns and complete sequences logically</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Inserting Missing Character', 'https://docs.google.com/forms/d/e/1FAIpQLScIvxNCKyb8xx-D9WIPQkVrvVmOZjGBp26vUe7UToWKs8_F5g/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1xMam6CtheRADwh_N4_3cRx143OXZMJur43jWLzP1lqE/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Mathematical Operations -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">➕</div>
+                    <div class="chapter-title">Mathematical Operations</div>
+                    <div class="chapter-desc">Apply logical operations on mathematical symbols</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Mathematical Operations', 'https://docs.google.com/forms/d/e/1FAIpQLScqshegiCDZZsVL-XotGZXDabPetyrt6-i00yCBg4a1AT242w/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/16aaSWL0IT17xcAcoTTb3Ebr5NVub8g8GnbjHc1WNn4A/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Number, Ranking & Time Sequence -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🔢</div>
+                    <div class="chapter-title">Number, Ranking & Time Sequence</div>
+                    <div class="chapter-desc">Solve ranking, ordering, and sequence problems</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Number, Ranking & Time Sequence', 'https://docs.google.com/forms/d/e/1FAIpQLSfIPBH38DPXq8CxKKq4-s2a8xnNMSd4QdwXpEkfVu6UYDJY3A/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/11mWnhJEPh8eAGm_b1zzEOsqrpZ-00bolfdrHjnf-KZU/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Puzzle Test -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">🧩</div>
+                    <div class="chapter-title">Puzzle Test</div>
+                    <div class="chapter-desc">Solve complex logical puzzles and brain teasers</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Puzzle Test', 'https://docs.google.com/forms/d/e/1FAIpQLSc1VRq3-3CF3UzjhbkRVwSg5oOuQ_Ui5pTWaMhdIGrNIGFlKg/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1qIh5uYH-YCsc2SjpIcSfE91BgNBKrKJpqZZVqbNwEgg/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Syllogism -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">📚</div>
+                    <div class="chapter-title">Syllogism</div>
+                    <div class="chapter-desc">Logical deductions from given statements and premises</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Syllogism', 'https://docs.google.com/forms/d/e/1FAIpQLSffHbjzaO7-hbDAnj2Sos2UkBy7FG0xjhVQRQmmw0RwdCpOlw/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1jawQt4Ef4RJxJwo-pwVtGKLjRj_cQYgHKI9RHQP9WnA/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+
+                <!-- Venn Diagrams -->
+                <div class="chapter-card">
+                    <div class="chapter-icon">⭕</div>
+                    <div class="chapter-title">Venn Diagrams</div>
+                    <div class="chapter-desc">Visual representation of set relationships and logic</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openQuiz('Venn Diagrams', 'https://docs.google.com/forms/d/e/1FAIpQLSdFrw8l6lejNUjS4OvR7i-l7BzcotJIZaPMHbrDfN_b3gdjpA/viewform?embedded=true')">Take Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/15wslcdjxDuRdnJRCqtXAEBqF9EQXIbTwRk3uEKwdvRA/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>💡 Developed by <a href="https://daljithathan.github.io/" target="_blank">Daljit Singh</a></p>
+            <p>🎯 Download App <a href="https://play.google.com/store/search?q=thinkbox&c=apps" target="_blank">ThinkBox</a></p>
+            <p>© 2026 ThinkBox - Your Gateway to Success in Competitive Exams</p>
+        </div>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Quiz Title</h2>
+                <button class="close-btn" onclick="closeQuiz()">×</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="quizFrame" class="quiz-iframe" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Prevent copying and right-click
+        document.addEventListener('copy', (e) => {
+            e.preventDefault();
+            alert('⚠️ Copying is disabled during the test!');
+        });
+
+        document.addEventListener('cut', (e) => {
+            e.preventDefault();
+            alert('⚠️ Cutting is disabled during the test!');
+        });
+
+        // Detect tab/window switching
+        let warningCount = 0;
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                warningCount++;
+                alert(`⚠️ Warning ${warningCount}: Tab switching detected! This will be recorded.`);
+            }
+        });
+
+        // Prevent keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Prevent Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+A, Ctrl+U, F12, Ctrl+Shift+I
+            if ((e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'v' || e.key === 'a' || e.key === 'u')) || 
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+                alert('⚠️ This action is disabled during the test!');
+            }
+        });
+
+        // Tab Navigation
+        function showSection(section) {
+            // Remove active class from all tabs and sections
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+            
+            // Add active class to selected tab and section
+            event.target.classList.add('active');
+            document.getElementById(section).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Open Quiz Modal
+        function openQuiz(title, url) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('quizFrame').src = url;
+            document.getElementById('quizModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Start monitoring
+            warningCount = 0;
+        }
+
+        // Close Quiz Modal
+        function closeQuiz() {
+            document.getElementById('quizModal').classList.remove('active');
+            document.getElementById('quizFrame').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('quizModal');
+            if (event.target === modal) {
+                closeQuiz();
+            }
+        }
+
+        // Disable console (basic protection)
+        (function() {
+            console.log = function() {};
+            console.warn = function() {};
+            console.error = function() {};
+        })();
+    </script>
+</body>
+</html>
