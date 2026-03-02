@@ -775,7 +775,6 @@
 
         // Prevent keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            // Prevent Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+A, Ctrl+U, F12, Ctrl+Shift+I
             if ((e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'v' || e.key === 'a' || e.key === 'u')) || 
                 e.key === 'F12' || 
                 (e.ctrlKey && e.shiftKey && e.key === 'I')) {
@@ -784,41 +783,33 @@
             }
         });
 
-        // Tab Navigation
         function showSection(section, event) {
-            // Remove active class from all tabs and sections
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
             
-            // Add active class to selected tab and section
             if(event) {
-                event.currentTarget.classList.add('active'); // Fixed: Uses currentTarget to prevent emoji clicking bugs
+                event.currentTarget.classList.add('active'); 
             }
             document.getElementById(section).classList.add('active');
             
-            // Scroll to top
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Open Quiz Modal (Google Forms)
         function openQuiz(title, url) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('quizFrame').src = url;
             document.getElementById('quizModal').classList.add('active');
             document.body.style.overflow = 'hidden';
             
-            // Start monitoring
             warningCount = 0;
         }
 
-        // Close Quiz Modal (Google Forms)
         function closeQuiz() {
             document.getElementById('quizModal').classList.remove('active');
             document.getElementById('quizFrame').src = '';
             document.body.style.overflow = 'auto';
         }
 
-        // Close modal when clicking outside (Fixed to support both modals)
         window.onclick = function(event) {
             const formModal = document.getElementById('quizModal');
             const customModal = document.getElementById('customQuizModal');
@@ -830,7 +821,6 @@
             }
         }
 
-        // Disable console (basic protection)
         (function() {
             console.log = function() {};
             console.warn = function() {};
@@ -838,13 +828,11 @@
         })();
 
         // --- Custom Quiz Logic ---
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwl8uOBsocxfFHhNwwzj8AHzF4JOoQ_eU2jGhzeVVcyMG7M0jZ7_A2crjc9xRQA6wOa/exec'; 
 
         function openCustomQuiz() {
             document.getElementById('customQuizModal').classList.add('active');
             document.body.style.overflow = 'hidden';
             
-            // Check local storage as a primary defense against reloading
             if(localStorage.getItem('techQuizSubmitted')) {
                 document.getElementById('techQuizForm').style.display = 'none';
                 document.getElementById('resultMessage').style.display = 'block';
@@ -860,13 +848,15 @@
         }
 
         async function submitQuiz(event) {
-            event.preventDefault(); // Prevent page reload
+            event.preventDefault(); 
+            
+            // FIX APPLIED HERE: The SCRIPT_URL is now declared securely inside the function
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwl8uOBsocxfFHhNwwzj8AHzF4JOoQ_eU2jGhzeVVcyMG7M0jZ7_A2crjc9xRQA6wOa/exec'; 
             
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.innerText = "Submitting... Please wait";
             submitBtn.disabled = true;
 
-            // Gather form data
             const formData = {
                 name: document.getElementById('studentName').value,
                 rollNo: document.getElementById('rollNo').value,
@@ -880,49 +870,47 @@
                 }
             };
 
-try {
-        const response = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify(formData),
-            // Removing the specific charset prevents strict CORS preflight issues
-            headers: { 'Content-Type': 'text/plain' },
-            redirect: 'follow' // Tells the browser to follow Google's internal routing
-        });
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(formData),
+                    headers: { 'Content-Type': 'text/plain' },
+                    redirect: 'follow' 
+                });
 
-        // We check if the response is actually JSON before parsing
-        const responseText = await response.text();
-        
-        let result;
-        try {
-            result = JSON.parse(responseText);
-        } catch (e) {
-            throw new Error("Server returned an unexpected format. This usually means the Google Script crashed or permissions are wrong.");
-        }
+                const responseText = await response.text();
+                
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                } catch (e) {
+                    throw new Error("Server returned an unexpected format. This usually means the Google Script crashed or permissions are wrong.");
+                }
 
-        const resultDiv = document.getElementById('resultMessage');
-        resultDiv.style.display = 'block';
+                const resultDiv = document.getElementById('resultMessage');
+                resultDiv.style.display = 'block';
 
-        if(result.status === 'success') {
-            document.getElementById('techQuizForm').style.display = 'none';
-            resultDiv.style.backgroundColor = '#d4edda';
-            resultDiv.style.color = '#155724';
-            resultDiv.innerHTML = `✅ ${result.message}`;
-            
-            localStorage.setItem('techQuizSubmitted', 'true'); 
-        } else {
-            resultDiv.style.backgroundColor = '#f8d7da';
-            resultDiv.style.color = '#721c24';
-            resultDiv.innerHTML = `❌ ${result.message}`;
-            submitBtn.innerText = "Try Again";
-            submitBtn.disabled = false;
-        }
+                if(result.status === 'success') {
+                    document.getElementById('techQuizForm').style.display = 'none';
+                    resultDiv.style.backgroundColor = '#d4edda';
+                    resultDiv.style.color = '#155724';
+                    resultDiv.innerHTML = `✅ ${result.message}`;
+                    
+                    localStorage.setItem('techQuizSubmitted', 'true'); 
+                } else {
+                    resultDiv.style.backgroundColor = '#f8d7da';
+                    resultDiv.style.color = '#721c24';
+                    resultDiv.innerHTML = `❌ ${result.message}`;
+                    submitBtn.innerText = "Try Again";
+                    submitBtn.disabled = false;
+                }
 
-    } catch (error) {
-        console.error("Submission Error:", error);
-        alert(`Request Failed: ${error.message}\n\nPlease verify your Google Apps Script permissions are set to "Anyone".`);
-        submitBtn.innerText = "Submit Quiz";
-        submitBtn.disabled = false;
-    }
+            } catch (error) {
+                console.error("Submission Error:", error);
+                alert(`Request Failed: ${error.message}\n\nPlease verify your Google Apps Script permissions are set to "Anyone".`);
+                submitBtn.innerText = "Submit Quiz";
+                submitBtn.disabled = false;
+            }
         }
     </script>
 </body>
