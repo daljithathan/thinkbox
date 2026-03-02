@@ -661,6 +661,7 @@
                     <div class="chapter-desc">Potentiometers, Tachometers, Servomotors, and Synchros</div>
                     <div class="chapter-actions">
                         <button class="btn btn-primary" onclick="openCustomQuiz()">Take Custom Quiz</button>
+                        <a href="https://docs.google.com/spreadsheets/d/1KL2QdzyTPd6gvATlnsYDHT8a9sHqxgRAjg6dujphOpY/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
                     </div>
                 </div>
             </div>
@@ -858,6 +859,8 @@
             submitBtn.disabled = true;
 
             const formData = {
+                subject: 'Linear Control System',         // Added Subject
+                chapter: 'Control System Components',     // Added Chapter
                 name: document.getElementById('studentName').value,
                 rollNo: document.getElementById('rollNo').value,
                 batch: document.getElementById('batch').value,
