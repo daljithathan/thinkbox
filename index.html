@@ -880,39 +880,49 @@
                 }
             };
 
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(formData),
-                    // Use text/plain to avoid CORS preflight issues with Google Apps Script
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
-                });
+try {
+        const response = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            // Removing the specific charset prevents strict CORS preflight issues
+            headers: { 'Content-Type': 'text/plain' },
+            redirect: 'follow' // Tells the browser to follow Google's internal routing
+        });
 
-                const result = await response.json();
-                const resultDiv = document.getElementById('resultMessage');
-                resultDiv.style.display = 'block';
+        // We check if the response is actually JSON before parsing
+        const responseText = await response.text();
+        
+        let result;
+        try {
+            result = JSON.parse(responseText);
+        } catch (e) {
+            throw new Error("Server returned an unexpected format. This usually means the Google Script crashed or permissions are wrong.");
+        }
 
-                if(result.status === 'success') {
-                    document.getElementById('techQuizForm').style.display = 'none';
-                    resultDiv.style.backgroundColor = '#d4edda';
-                    resultDiv.style.color = '#155724';
-                    resultDiv.innerHTML = `✅ ${result.message}`;
-                    
-                    // Set local storage so they can't just hit back
-                    localStorage.setItem('techQuizSubmitted', 'true'); 
-                } else {
-                    resultDiv.style.backgroundColor = '#f8d7da';
-                    resultDiv.style.color = '#721c24';
-                    resultDiv.innerHTML = `❌ ${result.message}`;
-                    submitBtn.innerText = "Try Again";
-                    submitBtn.disabled = false;
-                }
+        const resultDiv = document.getElementById('resultMessage');
+        resultDiv.style.display = 'block';
 
-            } catch (error) {
-                alert("A network error occurred. Please check your connection.");
-                submitBtn.innerText = "Submit Quiz";
-                submitBtn.disabled = false;
-            }
+        if(result.status === 'success') {
+            document.getElementById('techQuizForm').style.display = 'none';
+            resultDiv.style.backgroundColor = '#d4edda';
+            resultDiv.style.color = '#155724';
+            resultDiv.innerHTML = `✅ ${result.message}`;
+            
+            localStorage.setItem('techQuizSubmitted', 'true'); 
+        } else {
+            resultDiv.style.backgroundColor = '#f8d7da';
+            resultDiv.style.color = '#721c24';
+            resultDiv.innerHTML = `❌ ${result.message}`;
+            submitBtn.innerText = "Try Again";
+            submitBtn.disabled = false;
+        }
+
+    } catch (error) {
+        console.error("Submission Error:", error);
+        alert(`Request Failed: ${error.message}\n\nPlease verify your Google Apps Script permissions are set to "Anyone".`);
+        submitBtn.innerText = "Submit Quiz";
+        submitBtn.disabled = false;
+    }
         }
     </script>
 </body>
