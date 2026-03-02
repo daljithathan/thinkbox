@@ -837,7 +837,9 @@
             console.error = function() {};
         })();
 
-        // --- Custom Quiz Logic ---
+// --- Custom Quiz Logic ---
+        
+        // 1. URL MUST be at the very top of this section!
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymtfo8goefeCbm8BxJp5tb_xk3hx12ZAz3IqzyQ72lJigWdm7qoaJm0xRnAmFzJzf5/exec'; 
 
         function openCustomQuiz() {
@@ -880,49 +882,51 @@
                 }
             };
 
-try {
-        const response = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify(formData),
-            // Removing the specific charset prevents strict CORS preflight issues
-            headers: { 'Content-Type': 'text/plain' },
-            redirect: 'follow' // Tells the browser to follow Google's internal routing
-        });
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(formData),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    redirect: 'follow'
+                });
 
-        // We check if the response is actually JSON before parsing
-        const responseText = await response.text();
-        
-        let result;
-        try {
-            result = JSON.parse(responseText);
-        } catch (e) {
-            throw new Error("Server returned an unexpected format. This usually means the Google Script crashed or permissions are wrong.");
+                // Get the raw text from Google Apps Script
+                const responseText = await response.text();
+                let result;
+                
+                try {
+                    // Try to parse it as JSON
+                    result = JSON.parse(responseText);
+                } catch (e) {
+                    throw new Error("The server did not return a valid response. Please ensure you deployed the script as a 'New Version'.");
+                }
+
+                const resultDiv = document.getElementById('resultMessage');
+                resultDiv.style.display = 'block';
+
+                if(result.status === 'success') {
+                    document.getElementById('techQuizForm').style.display = 'none';
+                    resultDiv.style.backgroundColor = '#d4edda';
+                    resultDiv.style.color = '#155724';
+                    resultDiv.innerHTML = `✅ ${result.message}`;
+                    
+                    // Set local storage so they can't just hit back
+                    localStorage.setItem('techQuizSubmitted', 'true'); 
+                } else {
+                    resultDiv.style.backgroundColor = '#f8d7da';
+                    resultDiv.style.color = '#721c24';
+                    resultDiv.innerHTML = `❌ ${result.message}`;
+                    submitBtn.innerText = "Try Again";
+                    submitBtn.disabled = false;
+                }
+
+            } catch (error) {
+                console.error("Submission Error:", error);
+                alert(`Request Failed: ${error.message}`);
+                submitBtn.innerText = "Submit Quiz";
+                submitBtn.disabled = false;
+            }
         }
-
-        const resultDiv = document.getElementById('resultMessage');
-        resultDiv.style.display = 'block';
-
-        if(result.status === 'success') {
-            document.getElementById('techQuizForm').style.display = 'none';
-            resultDiv.style.backgroundColor = '#d4edda';
-            resultDiv.style.color = '#155724';
-            resultDiv.innerHTML = `✅ ${result.message}`;
-            
-            localStorage.setItem('techQuizSubmitted', 'true'); 
-        } else {
-            resultDiv.style.backgroundColor = '#f8d7da';
-            resultDiv.style.color = '#721c24';
-            resultDiv.innerHTML = `❌ ${result.message}`;
-            submitBtn.innerText = "Try Again";
-            submitBtn.disabled = false;
-        }
-
-    } catch (error) {
-        console.error("Submission Error:", error);
-        alert(`Request Failed: ${error.message}\n\nPlease verify your Google Apps Script permissions are set to "Anyone".`);
-        submitBtn.innerText = "Submit Quiz";
-        submitBtn.disabled = false;
-    }
         }
     </script>
 </body>
