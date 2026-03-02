@@ -359,13 +359,11 @@
 </head>
 <body oncontextmenu="return false;">
     <div class="container">
-        <!-- Main Header -->
         <div class="main-header">
             <h1>🧠 ThinkBox Quiz Platform</h1>
             <p>Quantitative Aptitude & Verbal Reasoning</p>
         </div>
 
-        <!-- Security Warning -->
         <div class="security-warning">
             <h3>⚠️ Test Guidelines & Security Notice</h3>
             <ul>
@@ -375,23 +373,20 @@
             </ul>
         </div>
 
-        <!-- Navigation Tabs -->
         <div class="nav-tabs">
-            <div class="nav-tab active" onclick="showSection('aptitude')">
+            <div class="nav-tab active" onclick="showSection('aptitude', event)">
                 📐 Quantitative Aptitude
             </div>
-            <div class="nav-tab" onclick="showSection('reasoning')">
+            <div class="nav-tab" onclick="showSection('reasoning', event)">
                 🧩 Verbal Reasoning
             </div>
-            <div class="nav-tab" onclick="showSection('technical')">
+            <div class="nav-tab" onclick="showSection('technical', event)">
                 ⚙️ Technical Quizzes
             </div>
         </div>
 
-        <!-- Quantitative Aptitude Section -->
         <div id="aptitude" class="content-section active">
             <div class="chapter-grid">
-                <!-- Alligation or Mixture -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🧪</div>
                     <div class="chapter-title">Alligation or Mixture</div>
@@ -402,7 +397,6 @@
                     </div>
                 </div>
 
-                <!-- Area -->
                 <div class="chapter-card">
                     <div class="chapter-icon">📏</div>
                     <div class="chapter-title">Area</div>
@@ -413,7 +407,6 @@
                     </div>
                 </div>
 
-                <!-- Average -->
                 <div class="chapter-card">
                     <div class="chapter-icon">📊</div>
                     <div class="chapter-title">Average</div>
@@ -424,7 +417,6 @@
                     </div>
                 </div>
 
-                <!-- Boats & Streams -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🚤</div>
                     <div class="chapter-title">Boats & Streams</div>
@@ -435,7 +427,6 @@
                     </div>
                 </div>
 
-                <!-- HCF-LCM -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🔢</div>
                     <div class="chapter-title">HCF-LCM</div>
@@ -446,7 +437,6 @@
                     </div>
                 </div>
 
-                <!-- Partnership -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🤝</div>
                     <div class="chapter-title">Partnership</div>
@@ -457,7 +447,6 @@
                     </div>
                 </div>
 
-                <!-- Percentage -->
                 <div class="chapter-card">
                     <div class="chapter-icon">💯</div>
                     <div class="chapter-title">Percentage</div>
@@ -468,7 +457,6 @@
                     </div>
                 </div>
 
-                <!-- Pipes & Cisterns -->
                 <div class="chapter-card">
                     <div class="chapter-icon">💧</div>
                     <div class="chapter-title">Pipes & Cisterns</div>
@@ -479,7 +467,6 @@
                     </div>
                 </div>
 
-                <!-- Problems on Ages -->
                 <div class="chapter-card">
                     <div class="chapter-icon">👴</div>
                     <div class="chapter-title">Problems on Ages</div>
@@ -490,7 +477,6 @@
                     </div>
                 </div>
 
-                <!-- Profit & Loss -->
                 <div class="chapter-card">
                     <div class="chapter-icon">💰</div>
                     <div class="chapter-title">Profit & Loss</div>
@@ -501,7 +487,6 @@
                     </div>
                 </div>
 
-                <!-- Simple Interest -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🏦</div>
                     <div class="chapter-title">Simple Interest</div>
@@ -512,7 +497,6 @@
                     </div>
                 </div>
 
-                <!-- Time & Work -->
                 <div class="chapter-card">
                     <div class="chapter-icon">⏰</div>
                     <div class="chapter-title">Time & Work</div>
@@ -523,7 +507,6 @@
                     </div>
                 </div>
 
-                <!-- Volume -->
                 <div class="chapter-card">
                     <div class="chapter-icon">📦</div>
                     <div class="chapter-title">Volume</div>
@@ -536,10 +519,8 @@
             </div>
         </div>
 
-        <!-- Verbal Reasoning Section -->
         <div id="reasoning" class="content-section">
             <div class="chapter-grid">
-                <!-- Alphabet Test -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🔤</div>
                     <div class="chapter-title">Alphabet Test</div>
@@ -550,7 +531,6 @@
                     </div>
                 </div>
 
-                <!-- Analogy -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🔗</div>
                     <div class="chapter-title">Analogy</div>
@@ -561,7 +541,6 @@
                     </div>
                 </div>
 
-                <!-- Arithmetical Reasoning -->
                 <div class="chapter-card">
                     <div class="chapter-icon">➗</div>
                     <div class="chapter-title">Arithmetical Reasoning</div>
@@ -572,7 +551,6 @@
                     </div>
                 </div>
 
-                <!-- Blood Relations -->
                 <div class="chapter-card">
                     <div class="chapter-icon">👨‍👩‍👧‍👦</div>
                     <div class="chapter-title">Blood Relations</div>
@@ -583,7 +561,6 @@
                     </div>
                 </div>
 
-                <!-- Classification -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🗂️</div>
                     <div class="chapter-title">Classification</div>
@@ -594,7 +571,6 @@
                     </div>
                 </div>
 
-                <!-- Coding Decoding -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🔐</div>
                     <div class="chapter-title">Coding Decoding</div>
@@ -605,7 +581,6 @@
                     </div>
                 </div>
 
-                <!-- Direction Sense Test -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🧭</div>
                     <div class="chapter-title">Direction Sense Test</div>
@@ -616,7 +591,6 @@
                     </div>
                 </div>
 
-                <!-- Inserting Missing Character -->
                 <div class="chapter-card">
                     <div class="chapter-icon">❓</div>
                     <div class="chapter-title">Inserting Missing Character</div>
@@ -627,7 +601,6 @@
                     </div>
                 </div>
 
-                <!-- Mathematical Operations -->
                 <div class="chapter-card">
                     <div class="chapter-icon">➕</div>
                     <div class="chapter-title">Mathematical Operations</div>
@@ -638,7 +611,6 @@
                     </div>
                 </div>
 
-                <!-- Number, Ranking & Time Sequence -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🔢</div>
                     <div class="chapter-title">Number, Ranking & Time Sequence</div>
@@ -649,7 +621,6 @@
                     </div>
                 </div>
 
-                <!-- Puzzle Test -->
                 <div class="chapter-card">
                     <div class="chapter-icon">🧩</div>
                     <div class="chapter-title">Puzzle Test</div>
@@ -660,7 +631,6 @@
                     </div>
                 </div>
 
-                <!-- Syllogism -->
                 <div class="chapter-card">
                     <div class="chapter-icon">📚</div>
                     <div class="chapter-title">Syllogism</div>
@@ -671,7 +641,6 @@
                     </div>
                 </div>
 
-                <!-- Venn Diagrams -->
                 <div class="chapter-card">
                     <div class="chapter-icon">⭕</div>
                     <div class="chapter-title">Venn Diagrams</div>
@@ -681,24 +650,22 @@
                         <a href="https://docs.google.com/spreadsheets/d/15wslcdjxDuRdnJRCqtXAEBqF9EQXIbTwRk3uEKwdvRA/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
                     </div>
                 </div>
-
-                <div id="technical" class="content-section">
-                    <div class="chapter-grid">
-                        <div class="chapter-card">
-                            <div class="chapter-icon">⚡</div>
-                            <div class="chapter-title">Control System Components</div>
-                            <div class="chapter-desc">Potentiometers, Tachometers, Servomotors, and Synchros</div>
-                            <div class="chapter-actions">
-                                <button class="btn btn-primary" onclick="openCustomQuiz()">Take Custom Quiz</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
             </div>
         </div>
 
-        <!-- Footer -->
+        <div id="technical" class="content-section">
+            <div class="chapter-grid">
+                <div class="chapter-card">
+                    <div class="chapter-icon">⚡</div>
+                    <div class="chapter-title">Control System Components</div>
+                    <div class="chapter-desc">Potentiometers, Tachometers, Servomotors, and Synchros</div>
+                    <div class="chapter-actions">
+                        <button class="btn btn-primary" onclick="openCustomQuiz()">Take Custom Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="footer">
             <p>💡 Developed by <a href="https://daljithathan.github.io/" target="_blank">Daljit Singh</a></p>
             <p>🎯 Download App <a href="https://play.google.com/store/search?q=thinkbox&c=apps" target="_blank">ThinkBox</a></p>
@@ -706,7 +673,6 @@
         </div>
     </div>
 
-    <!-- Quiz Modal -->
     <div id="quizModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -720,71 +686,71 @@
     </div>
 
     <div id="customQuizModal" class="modal">
-    <div class="modal-content" style="max-width: 800px;">
-        <div class="modal-header">
-            <h2>📝 Control System Components Quiz</h2>
-            <button class="close-btn" onclick="closeCustomQuiz()">×</button>
-        </div>
-        <div class="modal-body">
-            <div id="quizFormContainer">
-                <form id="techQuizForm" onsubmit="submitQuiz(event)">
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
-                        <h3 style="margin-bottom: 15px; color: #333;">Student Information</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                            <input type="text" id="studentName" placeholder="Full Name (e.g., Ram Singh)" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
-                            <input type="text" id="rollNo" placeholder="University Roll No." required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
-                            <input type="text" id="batch" placeholder="Batch (e.g., 2023-27)" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2>📝 Control System Components Quiz</h2>
+                <button class="close-btn" onclick="closeCustomQuiz()">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="quizFormContainer">
+                    <form id="techQuizForm" onsubmit="submitQuiz(event)">
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+                            <h3 style="margin-bottom: 15px; color: #333;">Student Information</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                                <input type="text" id="studentName" placeholder="Full Name (e.g., Ram Singh)" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                                <input type="text" id="rollNo" placeholder="University Roll No." required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                                <input type="text" id="batch" placeholder="Batch (e.g., 2023-27)" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="question-block" style="margin-bottom: 20px;">
-                        <p style="font-weight: bold; margin-bottom: 10px;">1. Which component is primarily used as an error detector in a control system by converting an angular position into an electrical signal?</p>
-                        <label><input type="radio" name="q1" value="A" required> A) Tachometer</label><br>
-                        <label><input type="radio" name="q1" value="B"> B) Potentiometer</label><br>
-                        <label><input type="radio" name="q1" value="C"> C) AC Servomotor</label><br>
-                        <label><input type="radio" name="q1" value="D"> D) Synchro Control Transformer</label>
-                    </div>
+                        <div class="question-block" style="margin-bottom: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">1. Which component is primarily used as an error detector in a control system by converting an angular position into an electrical signal?</p>
+                            <label><input type="radio" name="q1" value="A" required> A) Tachometer</label><br>
+                            <label><input type="radio" name="q1" value="B"> B) Potentiometer</label><br>
+                            <label><input type="radio" name="q1" value="C"> C) AC Servomotor</label><br>
+                            <label><input type="radio" name="q1" value="D"> D) Synchro Control Transformer</label>
+                        </div>
 
-                    <div class="question-block" style="margin-bottom: 20px;">
-                        <p style="font-weight: bold; margin-bottom: 10px;">2. In an AC Servomotor, how does the rotor design differ from a standard induction motor to provide better control characteristics?</p>
-                        <label><input type="radio" name="q2" value="A" required> A) It has a high resistance and low inertia.</label><br>
-                        <label><input type="radio" name="q2" value="B"> B) It has low resistance and high inertia.</label><br>
-                        <label><input type="radio" name="q2" value="C"> C) It is made entirely of permanent magnets.</label><br>
-                        <label><input type="radio" name="q2" value="D"> D) It uses a split-phase capacitor permanently.</label>
-                    </div>
+                        <div class="question-block" style="margin-bottom: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">2. In an AC Servomotor, how does the rotor design differ from a standard induction motor to provide better control characteristics?</p>
+                            <label><input type="radio" name="q2" value="A" required> A) It has a high resistance and low inertia.</label><br>
+                            <label><input type="radio" name="q2" value="B"> B) It has low resistance and high inertia.</label><br>
+                            <label><input type="radio" name="q2" value="C"> C) It is made entirely of permanent magnets.</label><br>
+                            <label><input type="radio" name="q2" value="D"> D) It uses a split-phase capacitor permanently.</label>
+                        </div>
 
-                    <div class="question-block" style="margin-bottom: 20px;">
-                        <p style="font-weight: bold; margin-bottom: 10px;">3. What is the primary function of a Tachometer in a closed-loop control system?</p>
-                        <label><input type="radio" name="q3" value="A" required> A) To measure displacement and act as an error detector.</label><br>
-                        <label><input type="radio" name="q3" value="B"> B) To provide the main driving torque to the load.</label><br>
-                        <label><input type="radio" name="q3" value="C"> C) To measure the angular velocity and provide derivative feedback.</label><br>
-                        <label><input type="radio" name="q3" value="D"> D) To convert a DC signal into an AC signal.</label>
-                    </div>
+                        <div class="question-block" style="margin-bottom: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">3. What is the primary function of a Tachometer in a closed-loop control system?</p>
+                            <label><input type="radio" name="q3" value="A" required> A) To measure displacement and act as an error detector.</label><br>
+                            <label><input type="radio" name="q3" value="B"> B) To provide the main driving torque to the load.</label><br>
+                            <label><input type="radio" name="q3" value="C"> C) To measure the angular velocity and provide derivative feedback.</label><br>
+                            <label><input type="radio" name="q3" value="D"> D) To convert a DC signal into an AC signal.</label>
+                        </div>
 
-                    <div class="question-block" style="margin-bottom: 20px;">
-                        <p style="font-weight: bold; margin-bottom: 10px;">4. A Synchro transmitter is structurally most similar to which of the following electrical machines?</p>
-                        <label><input type="radio" name="q4" value="A" required> A) DC Series Motor</label><br>
-                        <label><input type="radio" name="q4" value="B"> B) Squirrel Cage Induction Motor</label><br>
-                        <label><input type="radio" name="q4" value="C"> C) Three-phase Alternator</label><br>
-                        <label><input type="radio" name="q4" value="D"> D) Stepper Motor</label>
-                    </div>
+                        <div class="question-block" style="margin-bottom: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">4. A Synchro transmitter is structurally most similar to which of the following electrical machines?</p>
+                            <label><input type="radio" name="q4" value="A" required> A) DC Series Motor</label><br>
+                            <label><input type="radio" name="q4" value="B"> B) Squirrel Cage Induction Motor</label><br>
+                            <label><input type="radio" name="q4" value="C"> C) Three-phase Alternator</label><br>
+                            <label><input type="radio" name="q4" value="D"> D) Stepper Motor</label>
+                        </div>
 
-                    <div class="question-block" style="margin-bottom: 20px;">
-                        <p style="font-weight: bold; margin-bottom: 10px;">5. Which of the following is a key advantage of a DC Tachometer over an AC Tachometer?</p>
-                        <label><input type="radio" name="q5" value="A" required> A) Absence of commutator and brushes.</label><br>
-                        <label><input type="radio" name="q5" value="B"> B) Output voltage polarity indicates the direction of rotation.</label><br>
-                        <label><input type="radio" name="q5" value="C"> C) It requires zero maintenance.</label><br>
-                        <label><input type="radio" name="q5" value="D"> D) It is immune to external magnetic interference.</label>
-                    </div>
+                        <div class="question-block" style="margin-bottom: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">5. Which of the following is a key advantage of a DC Tachometer over an AC Tachometer?</p>
+                            <label><input type="radio" name="q5" value="A" required> A) Absence of commutator and brushes.</label><br>
+                            <label><input type="radio" name="q5" value="B"> B) Output voltage polarity indicates the direction of rotation.</label><br>
+                            <label><input type="radio" name="q5" value="C"> C) It requires zero maintenance.</label><br>
+                            <label><input type="radio" name="q5" value="D"> D) It is immune to external magnetic interference.</label>
+                        </div>
 
-                    <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 1.1em; margin-top: 20px;">Submit Quiz</button>
-                </form>
-                
-                <div id="resultMessage" style="display: none; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: center; font-weight: bold; font-size: 1.2em;"></div>
+                        <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 1.1em; margin-top: 20px;">Submit Quiz</button>
+                    </form>
+                    
+                    <div id="resultMessage" style="display: none; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: center; font-weight: bold; font-size: 1.2em;"></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <script>
         // Prevent copying and right-click
@@ -819,20 +785,22 @@
         });
 
         // Tab Navigation
-        function showSection(section) {
+        function showSection(section, event) {
             // Remove active class from all tabs and sections
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
             
             // Add active class to selected tab and section
-            event.target.classList.add('active');
+            if(event) {
+                event.currentTarget.classList.add('active'); // Fixed: Uses currentTarget to prevent emoji clicking bugs
+            }
             document.getElementById(section).classList.add('active');
             
             // Scroll to top
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Open Quiz Modal
+        // Open Quiz Modal (Google Forms)
         function openQuiz(title, url) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('quizFrame').src = url;
@@ -843,18 +811,22 @@
             warningCount = 0;
         }
 
-        // Close Quiz Modal
+        // Close Quiz Modal (Google Forms)
         function closeQuiz() {
             document.getElementById('quizModal').classList.remove('active');
             document.getElementById('quizFrame').src = '';
             document.body.style.overflow = 'auto';
         }
 
-        // Close modal when clicking outside
+        // Close modal when clicking outside (Fixed to support both modals)
         window.onclick = function(event) {
-            const modal = document.getElementById('quizModal');
-            if (event.target === modal) {
+            const formModal = document.getElementById('quizModal');
+            const customModal = document.getElementById('customQuizModal');
+            
+            if (event.target === formModal) {
                 closeQuiz();
+            } else if (event.target === customModal) {
+                closeCustomQuiz();
             }
         }
 
@@ -866,83 +838,82 @@
         })();
 
         // --- Custom Quiz Logic ---
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymtfo8goefeCbm8BxJp5tb_xk3hx12ZAz3IqzyQ72lJigWdm7qoaJm0xRnAmFzJzf5/exec'; 
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymtfo8goefeCbm8BxJp5tb_xk3hx12ZAz3IqzyQ72lJigWdm7qoaJm0xRnAmFzJzf5/exec'; 
 
-function openCustomQuiz() {
-    document.getElementById('customQuizModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-    
-    // Check local storage as a primary defense against reloading
-    if(localStorage.getItem('techQuizSubmitted')) {
-        document.getElementById('techQuizForm').style.display = 'none';
-        document.getElementById('resultMessage').style.display = 'block';
-        document.getElementById('resultMessage').style.backgroundColor = '#fff3cd';
-        document.getElementById('resultMessage').style.color = '#856404';
-        document.getElementById('resultMessage').innerHTML = '⚠️ You have already completed this quiz on this device.';
-    }
-}
-
-function closeCustomQuiz() {
-    document.getElementById('customQuizModal').classList.remove('active');
-    document.body.style.overflow = 'auto';
-}
-
-async function submitQuiz(event) {
-    event.preventDefault(); // Prevent page reload
-    
-    const submitBtn = document.getElementById('submitBtn');
-    submitBtn.innerText = "Submitting... Please wait";
-    submitBtn.disabled = true;
-
-    // Gather form data
-    const formData = {
-        name: document.getElementById('studentName').value,
-        rollNo: document.getElementById('rollNo').value,
-        batch: document.getElementById('batch').value,
-        answers: {
-            q1: document.querySelector('input[name="q1"]:checked').value,
-            q2: document.querySelector('input[name="q2"]:checked').value,
-            q3: document.querySelector('input[name="q3"]:checked').value,
-            q4: document.querySelector('input[name="q4"]:checked').value,
-            q5: document.querySelector('input[name="q5"]:checked').value
-        }
-    };
-
-    try {
-        const response = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify(formData),
-            // Use text/plain to avoid CORS preflight issues with Google Apps Script
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
-        });
-
-        const result = await response.json();
-        const resultDiv = document.getElementById('resultMessage');
-        resultDiv.style.display = 'block';
-
-        if(result.status === 'success') {
-            document.getElementById('techQuizForm').style.display = 'none';
-            resultDiv.style.backgroundColor = '#d4edda';
-            resultDiv.style.color = '#155724';
-            resultDiv.innerHTML = `✅ ${result.message}`;
+        function openCustomQuiz() {
+            document.getElementById('customQuizModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
             
-            // Set local storage so they can't just hit back
-            localStorage.setItem('techQuizSubmitted', 'true'); 
-        } else {
-            resultDiv.style.backgroundColor = '#f8d7da';
-            resultDiv.style.color = '#721c24';
-            resultDiv.innerHTML = `❌ ${result.message}`;
-            submitBtn.innerText = "Try Again";
-            submitBtn.disabled = false;
+            // Check local storage as a primary defense against reloading
+            if(localStorage.getItem('techQuizSubmitted')) {
+                document.getElementById('techQuizForm').style.display = 'none';
+                document.getElementById('resultMessage').style.display = 'block';
+                document.getElementById('resultMessage').style.backgroundColor = '#fff3cd';
+                document.getElementById('resultMessage').style.color = '#856404';
+                document.getElementById('resultMessage').innerHTML = '⚠️ You have already completed this quiz on this device.';
+            }
         }
 
-    } catch (error) {
-        alert("A network error occurred. Please check your connection.");
-        submitBtn.innerText = "Submit Quiz";
-        submitBtn.disabled = false;
-    }
-}
-        
+        function closeCustomQuiz() {
+            document.getElementById('customQuizModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        async function submitQuiz(event) {
+            event.preventDefault(); // Prevent page reload
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerText = "Submitting... Please wait";
+            submitBtn.disabled = true;
+
+            // Gather form data
+            const formData = {
+                name: document.getElementById('studentName').value,
+                rollNo: document.getElementById('rollNo').value,
+                batch: document.getElementById('batch').value,
+                answers: {
+                    q1: document.querySelector('input[name="q1"]:checked').value,
+                    q2: document.querySelector('input[name="q2"]:checked').value,
+                    q3: document.querySelector('input[name="q3"]:checked').value,
+                    q4: document.querySelector('input[name="q4"]:checked').value,
+                    q5: document.querySelector('input[name="q5"]:checked').value
+                }
+            };
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(formData),
+                    // Use text/plain to avoid CORS preflight issues with Google Apps Script
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
+                });
+
+                const result = await response.json();
+                const resultDiv = document.getElementById('resultMessage');
+                resultDiv.style.display = 'block';
+
+                if(result.status === 'success') {
+                    document.getElementById('techQuizForm').style.display = 'none';
+                    resultDiv.style.backgroundColor = '#d4edda';
+                    resultDiv.style.color = '#155724';
+                    resultDiv.innerHTML = `✅ ${result.message}`;
+                    
+                    // Set local storage so they can't just hit back
+                    localStorage.setItem('techQuizSubmitted', 'true'); 
+                } else {
+                    resultDiv.style.backgroundColor = '#f8d7da';
+                    resultDiv.style.color = '#721c24';
+                    resultDiv.innerHTML = `❌ ${result.message}`;
+                    submitBtn.innerText = "Try Again";
+                    submitBtn.disabled = false;
+                }
+
+            } catch (error) {
+                alert("A network error occurred. Please check your connection.");
+                submitBtn.innerText = "Submit Quiz";
+                submitBtn.disabled = false;
+            }
+        }
     </script>
 </body>
 </html>
