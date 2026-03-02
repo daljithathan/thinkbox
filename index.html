@@ -383,6 +383,9 @@
             <div class="nav-tab" onclick="showSection('reasoning')">
                 🧩 Verbal Reasoning
             </div>
+            <div class="nav-tab" onclick="showSection('technical')">
+                ⚙️ Technical Quizzes
+            </div>
         </div>
 
         <!-- Quantitative Aptitude Section -->
@@ -678,6 +681,20 @@
                         <a href="https://docs.google.com/spreadsheets/d/15wslcdjxDuRdnJRCqtXAEBqF9EQXIbTwRk3uEKwdvRA/edit?usp=sharing" target="_blank" class="btn btn-secondary">View Results</a>
                     </div>
                 </div>
+
+                <div id="technical" class="content-section">
+                    <div class="chapter-grid">
+                        <div class="chapter-card">
+                            <div class="chapter-icon">⚡</div>
+                            <div class="chapter-title">Control System Components</div>
+                            <div class="chapter-desc">Potentiometers, Tachometers, Servomotors, and Synchros</div>
+                            <div class="chapter-actions">
+                                <button class="btn btn-primary" onclick="openCustomQuiz()">Take Custom Quiz</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
 
@@ -701,6 +718,73 @@
             </div>
         </div>
     </div>
+
+    <div id="customQuizModal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h2>📝 Control System Components Quiz</h2>
+            <button class="close-btn" onclick="closeCustomQuiz()">×</button>
+        </div>
+        <div class="modal-body">
+            <div id="quizFormContainer">
+                <form id="techQuizForm" onsubmit="submitQuiz(event)">
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+                        <h3 style="margin-bottom: 15px; color: #333;">Student Information</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                            <input type="text" id="studentName" placeholder="Full Name (e.g., Ram Singh)" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                            <input type="text" id="rollNo" placeholder="University Roll No." required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                            <input type="text" id="batch" placeholder="Batch (e.g., 2023-27)" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        </div>
+                    </div>
+
+                    <div class="question-block" style="margin-bottom: 20px;">
+                        <p style="font-weight: bold; margin-bottom: 10px;">1. Which component is primarily used as an error detector in a control system by converting an angular position into an electrical signal?</p>
+                        <label><input type="radio" name="q1" value="A" required> A) Tachometer</label><br>
+                        <label><input type="radio" name="q1" value="B"> B) Potentiometer</label><br>
+                        <label><input type="radio" name="q1" value="C"> C) AC Servomotor</label><br>
+                        <label><input type="radio" name="q1" value="D"> D) Synchro Control Transformer</label>
+                    </div>
+
+                    <div class="question-block" style="margin-bottom: 20px;">
+                        <p style="font-weight: bold; margin-bottom: 10px;">2. In an AC Servomotor, how does the rotor design differ from a standard induction motor to provide better control characteristics?</p>
+                        <label><input type="radio" name="q2" value="A" required> A) It has a high resistance and low inertia.</label><br>
+                        <label><input type="radio" name="q2" value="B"> B) It has low resistance and high inertia.</label><br>
+                        <label><input type="radio" name="q2" value="C"> C) It is made entirely of permanent magnets.</label><br>
+                        <label><input type="radio" name="q2" value="D"> D) It uses a split-phase capacitor permanently.</label>
+                    </div>
+
+                    <div class="question-block" style="margin-bottom: 20px;">
+                        <p style="font-weight: bold; margin-bottom: 10px;">3. What is the primary function of a Tachometer in a closed-loop control system?</p>
+                        <label><input type="radio" name="q3" value="A" required> A) To measure displacement and act as an error detector.</label><br>
+                        <label><input type="radio" name="q3" value="B"> B) To provide the main driving torque to the load.</label><br>
+                        <label><input type="radio" name="q3" value="C"> C) To measure the angular velocity and provide derivative feedback.</label><br>
+                        <label><input type="radio" name="q3" value="D"> D) To convert a DC signal into an AC signal.</label>
+                    </div>
+
+                    <div class="question-block" style="margin-bottom: 20px;">
+                        <p style="font-weight: bold; margin-bottom: 10px;">4. A Synchro transmitter is structurally most similar to which of the following electrical machines?</p>
+                        <label><input type="radio" name="q4" value="A" required> A) DC Series Motor</label><br>
+                        <label><input type="radio" name="q4" value="B"> B) Squirrel Cage Induction Motor</label><br>
+                        <label><input type="radio" name="q4" value="C"> C) Three-phase Alternator</label><br>
+                        <label><input type="radio" name="q4" value="D"> D) Stepper Motor</label>
+                    </div>
+
+                    <div class="question-block" style="margin-bottom: 20px;">
+                        <p style="font-weight: bold; margin-bottom: 10px;">5. Which of the following is a key advantage of a DC Tachometer over an AC Tachometer?</p>
+                        <label><input type="radio" name="q5" value="A" required> A) Absence of commutator and brushes.</label><br>
+                        <label><input type="radio" name="q5" value="B"> B) Output voltage polarity indicates the direction of rotation.</label><br>
+                        <label><input type="radio" name="q5" value="C"> C) It requires zero maintenance.</label><br>
+                        <label><input type="radio" name="q5" value="D"> D) It is immune to external magnetic interference.</label>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 1.1em; margin-top: 20px;">Submit Quiz</button>
+                </form>
+                
+                <div id="resultMessage" style="display: none; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: center; font-weight: bold; font-size: 1.2em;"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script>
         // Prevent copying and right-click
@@ -780,6 +864,85 @@
             console.warn = function() {};
             console.error = function() {};
         })();
+
+        // --- Custom Quiz Logic ---
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymtfo8goefeCbm8BxJp5tb_xk3hx12ZAz3IqzyQ72lJigWdm7qoaJm0xRnAmFzJzf5/exec'; 
+
+function openCustomQuiz() {
+    document.getElementById('customQuizModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Check local storage as a primary defense against reloading
+    if(localStorage.getItem('techQuizSubmitted')) {
+        document.getElementById('techQuizForm').style.display = 'none';
+        document.getElementById('resultMessage').style.display = 'block';
+        document.getElementById('resultMessage').style.backgroundColor = '#fff3cd';
+        document.getElementById('resultMessage').style.color = '#856404';
+        document.getElementById('resultMessage').innerHTML = '⚠️ You have already completed this quiz on this device.';
+    }
+}
+
+function closeCustomQuiz() {
+    document.getElementById('customQuizModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+async function submitQuiz(event) {
+    event.preventDefault(); // Prevent page reload
+    
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.innerText = "Submitting... Please wait";
+    submitBtn.disabled = true;
+
+    // Gather form data
+    const formData = {
+        name: document.getElementById('studentName').value,
+        rollNo: document.getElementById('rollNo').value,
+        batch: document.getElementById('batch').value,
+        answers: {
+            q1: document.querySelector('input[name="q1"]:checked').value,
+            q2: document.querySelector('input[name="q2"]:checked').value,
+            q3: document.querySelector('input[name="q3"]:checked').value,
+            q4: document.querySelector('input[name="q4"]:checked').value,
+            q5: document.querySelector('input[name="q5"]:checked').value
+        }
+    };
+
+    try {
+        const response = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            // Use text/plain to avoid CORS preflight issues with Google Apps Script
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
+        });
+
+        const result = await response.json();
+        const resultDiv = document.getElementById('resultMessage');
+        resultDiv.style.display = 'block';
+
+        if(result.status === 'success') {
+            document.getElementById('techQuizForm').style.display = 'none';
+            resultDiv.style.backgroundColor = '#d4edda';
+            resultDiv.style.color = '#155724';
+            resultDiv.innerHTML = `✅ ${result.message}`;
+            
+            // Set local storage so they can't just hit back
+            localStorage.setItem('techQuizSubmitted', 'true'); 
+        } else {
+            resultDiv.style.backgroundColor = '#f8d7da';
+            resultDiv.style.color = '#721c24';
+            resultDiv.innerHTML = `❌ ${result.message}`;
+            submitBtn.innerText = "Try Again";
+            submitBtn.disabled = false;
+        }
+
+    } catch (error) {
+        alert("A network error occurred. Please check your connection.");
+        submitBtn.innerText = "Submit Quiz";
+        submitBtn.disabled = false;
+    }
+}
+        
     </script>
 </body>
 </html>
